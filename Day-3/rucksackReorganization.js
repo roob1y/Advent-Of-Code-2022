@@ -13,10 +13,11 @@ textFile.map((compartments, index) => {
 const matchedLettersArr = [];
 
 rucksacksArr.map((rucksack) => {
-  const intersection = (rucksack.second.filter(item =>rucksack.first.includes(item)))  
+  const intersection = rucksack.second.filter((item) =>
+    rucksack.first.includes(item)
+  );
   const removeMultiple = [...new Set(intersection)];
-  matchedLettersArr.push(...removeMultiple)
-
+  matchedLettersArr.push(...removeMultiple);
 });
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
@@ -24,15 +25,19 @@ const upperCaseAlphabet = alphabet.toUpperCase();
 const alphabetConc = alphabet + upperCaseAlphabet;
 
 const priorityObj = {};
-
 for (let index in alphabetConc) {
-  alphabetConc[index];
   priorityObj[alphabetConc[index]] = +index + 1;
 }
+
+function findPriorityValWithLetter(letter) {
+  return priorityObj[letter];
+}
+
 let total = 0;
 
-for(let index in matchedLettersArr){
-  total += priorityObj[matchedLettersArr[index][0]] * matchedLettersArr[index].length
+for (let index in matchedLettersArr) {
+  total +=
+    findPriorityValWithLetter(matchedLettersArr[index]) * matchedLettersArr[index].length;
 }
 
 console.log(total);
